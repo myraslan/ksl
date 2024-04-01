@@ -81,6 +81,7 @@ function toggleMenu() {
   }
 }
 
+document.getElementById('updateButton').addEventListener('click', updateVisualization);
 // Function to handle the "Update Visualization" button click
 function updateVisualization() {
   const selectedLanguages = [];
