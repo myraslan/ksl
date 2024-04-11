@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3.js Graph Visualization</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <main>
         <div class="navbar">
@@ -14,9 +16,32 @@
             </div>
         </div>
         <div class="sidebar" id="sidebar">
-            <button id="closeButton">Close</button>
             <div id="searchContainer">
-                <input type="text" id="searchInput" placeholder="Search nodes...">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search nodes...">
+                    <button id="searchButton">Search</button>
+                </div>
+
+                <script>
+                    const searchInput = document.getElementById('searchInput');
+                    const searchResults = document.getElementById('searchResults');
+                    const nodes = ['apple', 'banana', 'orange']; // Replace with your actual nodes
+
+                    searchInput.addEventListener('input', () => {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        const filteredNodes = nodes.filter(node => node.toLowerCase().includes(searchTerm));
+
+                        // Clear previous search results
+                        searchResults.innerHTML = '';
+
+                        // Display filtered nodes
+                        filteredNodes.forEach(node => {
+                            const li = document.createElement('li');
+                            li.textContent = node;
+                            searchResults.appendChild(li);
+                        });
+                    });
+                </script>
                 <ul id="searchResults"></ul>
             </div>
             <div id="languageContainer"></div>
@@ -29,4 +54,5 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script type="module" src="script.js"></script>
 </body>
+
 </html>
