@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>D3.js Graph Visualization</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <main>
         <div class="navbar">
@@ -14,11 +16,9 @@
             </div>
         </div>
         <div class="sidebar" id="sidebar">
-            <button class="button-18" role="button" id="closeButton">Close</button>
-            <h2 >Graph Visualization</h2>
-            <div class="search" id="searchContainer">
-                <input type="text" id="searchInput" placeholder="Search Node">
-                <button class="searchButton" type="submit" ></button>
+            <button id="closeButton">Close</button>
+            <div id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Search nodes...">
                 <ul id="searchResults"></ul>
             </div>
             <div id="languageContainer"></div>
@@ -31,4 +31,5 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script type="module" src="script.js"></script>
 </body>
+
 </html>
