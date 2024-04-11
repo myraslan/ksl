@@ -56,12 +56,51 @@ function populateLanguageCheckboxes(languages) {
   });
 }
 
+function populateClassCheckboxes(classes) {
+    const classContainer = document.getElementById('classContainer');
+    classContainer.innerHTML = ''; // Clear previous content
+
+    let selectedCount = 0; // Track the number of selected checkboxes
+
+    classes.forEach((className, index) => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = `class${index + 1}`;
+        checkbox.value = className;
+
+        // Check the checkbox for "Default Class" by default
+        if (className === "Default Class") {
+        checkbox.checked = true;
+        selectedCount++; // Increment selected count
+        }
+
+        // Add event listener to track selected checkboxes
+        checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            selectedCount++; // Increment selected count when checkbox is checked
+        } else {
+            selectedCount--; // Decrement selected count when checkbox is unchecked
+        }
+        });
+
+        const label = document.createElement('label');
+        label.htmlFor = `class${index + 1}`;
+        label.textContent = className;
+
+        classContainer.appendChild(checkbox);
+        classContainer.appendChild(label);
+        classContainer.appendChild(document.createElement('br'));
+    });
+}
+
 function fetchData(filePath) {
   d3.json(filePath)
       .then(function(data) {
           const languages = Object.keys(data.nodes);
+          const classes = Object.keys(data.colors);
           // Call a function to visualize the data (or any other code that depends on the data)
           populateLanguageCheckboxes(languages);
+          populateClassCheckboxes(classes);
       })
       .catch(function(error) {
           // Handle errors here
@@ -81,8 +120,9 @@ function toggleMenu() {
   }
 }
 
-document.getElementById('updateButton').addEventListener('click', updateVisualization);
-// Function to handle the "Update Visualization" button click
+document.querySelectorAll('#updateButton').forEach(button => {
+    button.addEventListener('click', updateVisualization);
+});// Function to handle the "Update Visualization" button click
 function updateVisualization() {
   const selectedLanguages = [];
   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
