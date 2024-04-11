@@ -10,17 +10,19 @@
     <main>
         <div class="navbar">
             <div class="navbar-container">
-                <button class="menu-btn" id="menuButton">Show Menu</button>
+                <button class="button-18" role="button" id="menuButton">Show Menu</button>
             </div>
         </div>
         <div class="sidebar" id="sidebar">
-            <button id="closeButton">Close</button>
-            <div id="searchContainer">
-                <input type="text" id="searchInput" placeholder="Search nodes...">
+            <button class="button-18" role="button" id="closeButton">Close</button>
+            <h2 >Graph Visualization</h2>
+            <div class="search" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Search Node">
+                <button class="searchButton" type="submit" ></button>
                 <ul id="searchResults"></ul>
             </div>
             <div id="languageContainer"></div>
-            <button id="updateButton">Update Visualization</button>
+            <button class="button-18" role="button" id="updateButton">Update Visualization</button>
         </div>
         <div id="graph-container">
 
