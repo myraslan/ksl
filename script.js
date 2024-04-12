@@ -3,7 +3,7 @@ generateVisualization(["Arabic (Syria)"])
     .then(({nodes}) => {
         console.log(nodes)
     }
-    )
+)
 
 // Function to populate checkboxes with languages
 function populateLanguageCheckboxes(languages) {
