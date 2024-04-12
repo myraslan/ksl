@@ -1,5 +1,9 @@
 import { generateVisualization } from './visualization.js';
 generateVisualization(["Arabic (Syria)"])
+    .then(({nodes}) => {
+        console.log(nodes)
+    }
+    )
 
 // Function to populate checkboxes with languages
 function populateLanguageCheckboxes(languages) {
@@ -123,6 +127,7 @@ function toggleMenu() {
 document.querySelectorAll('#updateButton').forEach(button => {
     button.addEventListener('click', updateVisualization);
 });// Function to handle the "Update Visualization" button click
+
 function updateVisualization() {
   const selectedLanguages = [];
   const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
