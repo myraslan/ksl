@@ -2,10 +2,6 @@ function fetchData() {
   return d3.json('data/output.json');
 }
 
-function fetchNodes(){
-  
-}
-
 export async function generateVisualization(selectedLanguages){
     const data = await fetchData();
 
@@ -187,7 +183,7 @@ export async function generateVisualization(selectedLanguages){
         }
       }
 
-      return {nodes}
+      return {nodes, zoomOnNode}
   }
 
   // Function to create links based on nodes' class

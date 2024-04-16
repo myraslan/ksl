@@ -59,6 +59,15 @@ main {
     font-weight: bold;
 }
 
+.searchContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.searchResults li:hover{
+    background-color: #0a66c2;
+}
+
 #searchInput {
     width: 100%;
     padding: 8px;
@@ -145,8 +154,8 @@ main {
     background-color: #16437e;
 }
 
+
 .search {
     width: 100%;
     position: relative;
-    display: flex;
 }

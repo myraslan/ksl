@@ -1,7 +1,37 @@
 import { generateVisualization } from './visualization.js';
 generateVisualization(["Arabic (Syria)"])
-    .then(({nodes}) => {
-        console.log(nodes)
+    .then(({nodes, zoomOnNode}) => {
+        // Assume "nodes" array is available here
+        
+        document.getElementById('searchInput').addEventListener('input', function (event) {
+            const searchTerm = event.target.value.trim().toLowerCase();
+            const searchResultsList = document.getElementById('searchResults');
+            searchResultsList.innerHTML = ''; // Clear previous search results
+        
+            if (searchTerm === '') {
+                // Clear search results and hide the list if search input is empty
+                searchResultsList.style.display = 'none';
+                return; // Exit the event listener early
+            }
+
+            // Filter nodes by id where the id starts with the search term
+            const filteredNodes = nodes.filter(node => node.id.toLowerCase().startsWith(searchTerm)).slice(0, 3);
+        
+            // Create list items for matching nodes and append them to the search results list
+            filteredNodes.forEach(node => {
+                const listItem = document.createElement('li');
+                listItem.textContent = node.id;
+                listItem.addEventListener('click', function() {
+                    zoomOnNode(node); // Call function with node.id as argument
+                });
+                searchResultsList.appendChild(listItem);
+            });
+
+            searchResultsList.style.display = 'block';
+        
+            // Show or hide the search results list based on whether there are matching nodes
+            searchResultsList.style.display = filteredNodes.length > 0 ? 'block' : 'none';
+        });
     }
 )
 
@@ -9,7 +39,6 @@ generateVisualization(["Arabic (Syria)"])
 function populateLanguageCheckboxes(languages) {
   const languageContainer = document.getElementById('languageContainer');
   languageContainer.innerHTML = ''; // Clear previous content
-
   let selectedCount = 0; // Track the number of selected checkboxes
 
   languages.forEach((language, index) => {
@@ -142,10 +171,43 @@ function updateVisualization() {
       // Update visualization based on the selected languages
       const graphContainer = document.getElementById('graph-container');
       graphContainer.innerHTML = ''; // Clear previous content
-      generateVisualization(selectedLanguages);
-  } else {
-      // Handle case when no language is selected
-      console.error("Please select at least one language.");
-  }
+      generateVisualization(selectedLanguages)
+        .then(({nodes, zoomOnNode}) => {
+            // Assume "nodes" array is available here
+    
+            
+            document.getElementById('searchInput').addEventListener('input', function (event) {
+                const searchTerm = event.target.value.trim().toLowerCase();
+                const searchResultsList = document.getElementById('searchResults');
+                searchResultsList.innerHTML = ''; // Clear previous search results
+            
+                if (searchTerm === '') {
+                    // Clear search results and hide the list if search input is empty
+                    searchResultsList.style.display = 'none';
+                    return; // Exit the event listener early
+                }
+    
+                // Filter nodes by id where the id starts with the search term
+                const filteredNodes = nodes.filter(node => node.id.toLowerCase().startsWith(searchTerm)).slice(0, 3);
+            
+                // Create list items for matching nodes and append them to the search results list
+                filteredNodes.forEach(node => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = node.id;
+                    listItem.addEventListener('click', function() {
+                        zoomOnNode(node); // Call function with node.id as argument
+                    });
+                    searchResultsList.appendChild(listItem);
+                });
+    
+                searchResultsList.style.display = 'block';
+            
+                // Show or hide the search results list based on whether there are matching nodes
+                searchResultsList.style.display = filteredNodes.length > 0 ? 'block' : 'none';
+            });
+            
+            }
+        )      
+    }
 
 }
