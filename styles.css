@@ -64,8 +64,16 @@ main {
     flex-direction: column;
 }
 
-.searchResults li:hover{
-    background-color: #0a66c2;
+#searchResults li:hover {
+    background-color: #2b95ff;
+}
+
+#searchResults li.selected:hover {
+    background-color: #0a66c2; /* or specify the default background-color */
+}
+
+.selected {
+    background-color: #0a66c2; /* Example background color */
 }
 
 #searchInput {
@@ -86,10 +94,6 @@ main {
 #searchResults li {
     padding: 8px;
     cursor: pointer;
-}
-
-#searchResults li:hover {
-    background-color: #f4f4f4;
 }
 
 .button-18 {
