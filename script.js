@@ -1,7 +1,15 @@
-import { generateVisualization } from './visualization.js';
-generateVisualization(["Arabic (Syria)"])
+import { generateVisualization, getCurrentLanguages } from './visualization.js';
+let languages = []
+generateVisualization(["Arabic (Syria)"], [])
     .then(({nodes, zoomOnNode}) => {
-        searchFunctionality(nodes, zoomOnNode)
+        document.getElementById('updateClasses').addEventListener('click', function() {
+            // Get the current languages before updating by classes
+            const languages = getCurrentLanguages();
+        
+            // Call updateByClasses with the current languages
+            updateByClasses(languages);
+        });
+        searchFunctionality(nodes, zoomOnNode);
     }
 );
 
@@ -42,6 +50,7 @@ function searchFunctionality(nodes, zoomOnNode){
             const listItem = document.createElement('li');
             listItem.textContent = node.id;
             listItem.addEventListener('click', function () {
+                console.log(node)
                 zoomOnNode(node); // Call function with the node as argument
             });
             searchResultsList.appendChild(listItem);
@@ -69,6 +78,7 @@ function searchFunctionality(nodes, zoomOnNode){
         } else if (event.key === 'Enter' && selectedIndex >= 0 && selectedIndex < items.length) {
             // Call function with the selected node when Enter is pressed
             const selectedNode = nodes.find(node => node.id === items[selectedIndex].textContent);
+            console.log(selectedNode)
             zoomOnNode(selectedNode);
         }
     });
@@ -193,31 +203,62 @@ function toggleMenu() {
 }
 
 document.getElementById('updateLanguages').addEventListener('click', updateByLanguages);
-document.getElementById('updateClasses').addEventListener('click', updateByClasses);
 
 function updateByLanguages(){
+    const checkboxes = document.querySelectorAll('#languageContainer input[type="checkbox"]:checked');
     const selectedLanguages = [];
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+
     checkboxes.forEach(checkbox => {
         selectedLanguages.push(checkbox.value);
     });
-
-    console.log(selectedLanguages)
 
     // Check if at least one language is selected
     if (selectedLanguages.length > 0) {
         // Update visualization based on the selected languages
         const graphContainer = document.getElementById('graph-container');
         graphContainer.innerHTML = ''; // Clear previous content
-        generateVisualization(selectedLanguages)
+        generateVisualization(selectedLanguages, [])
             .then(({nodes, zoomOnNode}) => {
-            // Assume "nodes" array is available here
-            searchFunctionality(nodes, zoomOnNode);           
+            document.getElementById('updateClasses').addEventListener('click', function() {
+                // Get the current languages before updating by classes
+                const languages = getCurrentLanguages();
+            
+                // Call updateByClasses with the current languages
+                updateByClasses(languages);
+            });        
+
+            searchFunctionality(nodes, zoomOnNode);   
             }
         )      
     }
 }
 
-function updateVisualization() {
+function updateByClasses(selectedLanguages) {
+    document.getElementById('updateClasses').addEventListener('click', updateByClasses);
+    const checkboxes = document.querySelectorAll('#classContainer input[type="checkbox"]:checked');
+    const selectedClasses = [];
 
+    checkboxes.forEach(checkbox => {
+        selectedClasses.push(checkbox.value);
+    });
+
+    // Check if at least one language is selected
+    if (selectedClasses.length > 0) {
+        // Update visualization based on the selected languages
+        const graphContainer = document.getElementById('graph-container');
+        graphContainer.innerHTML = ''; // Clear previous content
+        generateVisualization(selectedLanguages, selectedClasses)
+            .then(({nodes, zoomOnNode}) => {
+            document.getElementById('updateClasses').addEventListener('click', function() {
+                // Get the current languages before updating by classes
+                const languages = getCurrentLanguages();
+            
+                // Call updateByClasses with the current languages
+                updateByClasses(languages);
+            });
+
+            searchFunctionality(nodes, zoomOnNode);   
+            }
+        )      
+    }
 }

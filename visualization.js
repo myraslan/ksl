@@ -2,14 +2,16 @@ function fetchData() {
   return d3.json('data/output.json');
 }
 
-export async function generateVisualization(selectedLanguages){
-    const data = await fetchData();
+let currentLanguages = [];
 
+export async function generateVisualization(selectedLanguages, selectedClasses){
+    const data = await fetchData();
+    currentLanguages = selectedLanguages;
     // Set up the SVG container
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Append svg element to the div
+    //Append svg element to the div
     const svgContainer = d3.select('#graph-container')
         .append('svg')
         .attr('width', width)
@@ -27,9 +29,16 @@ export async function generateVisualization(selectedLanguages){
     });
 
     // Filter nodes based on selected languages
-    const nodes = selectedLanguages.flatMap(language => data.nodes[language].map(node => ({ ...node, language })));
+    let nodes = selectedLanguages.flatMap(language => data.nodes[language].map(node => ({ ...node, language })));
+    console.log(nodes)
+    if (selectedClasses.length > 0){
+      nodes = nodes.filter(node => {
+        return selectedClasses.some(cls => node.classes.includes(cls));
+      });
+    }
+    console.log(nodes)
     const timer = nodes.length * 5;
-    //console.log(nodes)
+
     const linksForSimulation = createLinksForSimulation(nodes);
     const linksForVisualization = createLinksForVisualization(nodes, data.colors);
 
@@ -185,6 +194,10 @@ export async function generateVisualization(selectedLanguages){
 
       return {nodes, zoomOnNode}
   }
+
+export function getCurrentLanguages() {
+    return currentLanguages;
+}
 
   // Function to create links based on nodes' class
 function createLinksForSimulation(nodes) {
