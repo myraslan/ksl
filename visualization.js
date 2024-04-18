@@ -181,7 +181,7 @@ export async function generateVisualization(
 
   function zoomOnNode(clickedNode) {
     addConnections(clickedNode);
-
+    addNodeInfo(clickedNode);
     // Calculate the desired zoom level and centering based on the clicked node
     const [clickedX, clickedY] = [clickedNode.x, clickedNode.y]; // Get the coordinates of the clicked node
     const scale = 3; // Set the desired zoom level
@@ -198,6 +198,31 @@ export async function generateVisualization(
       .transition()
       .duration(1000) // Set the duration of the transition
       .call(zoom.transform, newTransform);
+  }
+
+  function addNodeInfo(clickedNode){
+    const nodeInfoContainer = document.getElementById("nodeInfoContainer");
+    // Create elements to hold the node information
+    const infoList = document.createElement("ul");
+    const idItem = document.createElement("li");
+    const classesItem = document.createElement("li");
+    const languageItem = document.createElement("li");
+
+    // Set text content for each item
+    idItem.textContent = `Word: ${clickedNode.id}`;
+    classesItem.textContent = `Classes: ${clickedNode.classes.join(", ")}`;
+    languageItem.textContent = `Language: ${clickedNode.language}`;
+
+    // Append items to the info list
+    infoList.appendChild(idItem);
+    infoList.appendChild(classesItem);
+    infoList.appendChild(languageItem);
+
+    // Clear any existing content in the container
+    nodeInfoContainer.innerHTML = "";
+
+    // Append the info list to the container
+    nodeInfoContainer.appendChild(infoList);
   }
 
   // Function to handle zoom event
