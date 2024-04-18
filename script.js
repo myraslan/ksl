@@ -202,16 +202,14 @@ document.getElementById("menuButton").addEventListener("click", toggleMenu);
 document.getElementById("closeButton").addEventListener("click", toggleMenu);
 function toggleMenu() {
   var sidebar = document.getElementById("sidebar");
-  if (sidebar.style.left === "-300px") {
+  if (sidebar.style.left === "-400px") {
     sidebar.style.left = "0";
   } else {
-    sidebar.style.left = "-300px";
+    sidebar.style.left = "-400px";
   }
 }
 
-document
-  .getElementById("updateLanguages")
-  .addEventListener("click", updateByLanguages);
+document.getElementById("updateLanguages").addEventListener("click", updateByLanguages);
 
 async function updateByLanguages() {
   const checkboxes = document.querySelectorAll(

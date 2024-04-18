@@ -1,8 +1,4 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: auto;
     margin: 0;
     padding: 0;
@@ -33,9 +29,9 @@ main {
     color: #fff;
     padding: 20px;
     position: fixed;
-    left: -300px; /* Initially hide the sidebar */
+    left: -400px; /* Initially hide the sidebar */
     top: 0;
-    transition: left 0.3s ease; /* Add smooth transition */
+    transition: left 0.4s ease; /* Add smooth transition */
     overflow-y: auto;
     box-sizing: border-box; /* Include padding in the total width/height */
     display: flex; /* Use flexbox layout for positioning */
@@ -47,16 +43,11 @@ main {
     background-color: #333;
     width: 100%;
     padding: 10px 20px;
-    transition: padding 0.3s ease; /* Add smooth transition */
 }
 
 .navbar-container {
     display: flex;
     justify-content: space-between;
-}
-
-.navbar-brand {
-    font-weight: bold;
 }
 
 .searchContainer{
