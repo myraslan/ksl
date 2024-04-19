@@ -275,3 +275,22 @@ function updateByClasses(selectedLanguages) {
     );
   }
 }
+
+document.getElementById("languageButton").addEventListener("click", function() {
+  var languagesDiv = document.getElementById("languages");
+
+  if (languagesDiv.style.display === "none") {
+      languagesDiv.style.display = "block";
+  } else {
+      languagesDiv.style.display = "none";
+  }
+});
+
+document.getElementById("classButton").addEventListener("click", function() {
+  var languagesDiv = document.getElementById("classes");
+  if (languagesDiv.style.display === "none") {
+      languagesDiv.style.display = "block";
+  } else {
+      languagesDiv.style.display = "none";
+  }
+});
