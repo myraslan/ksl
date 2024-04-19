@@ -5,6 +5,8 @@ export async function generateVisualization(
   selectedClasses
 ) {
   const data = await d3.json("data/output.json");
+  console.log(data)
+  console.log(data.colors.length)
   currentLanguages = selectedLanguages;
   // Set up the SVG container
   const width = window.innerWidth;
@@ -21,7 +23,7 @@ export async function generateVisualization(
 
   // Define an array of predefined colors
   const predefinedColors = ["#ff5733", "#33ff57", "#5733ff"]; // Add more colors if needed
-  console.log(selectedLanguages)
+  //console.log(selectedLanguages)
   // Assign colors directly to selectedLanguages
   const colorsMap = {};
   selectedLanguages.forEach((language, index) => {
@@ -204,18 +206,34 @@ export async function generateVisualization(
     const nodeInfoContainer = document.getElementById("nodeInfoContainer");
     // Create elements to hold the node information
     const infoList = document.createElement("ul");
+
+    const wordHeading = document.createElement("li");
+    const classHeading = document.createElement("li");
+    const languageHeading = document.createElement("li");
+
     const idItem = document.createElement("li");
     const classesItem = document.createElement("li");
     const languageItem = document.createElement("li");
 
+    wordHeading.textContent = 'Word:';
+    classHeading.textContent = 'Classes:';
+    languageHeading.textContent = 'Language:';
+
+    wordHeading.className = "heading";
+    classHeading.className = "heading";
+    languageHeading.className = "heading";    
+
     // Set text content for each item
-    idItem.textContent = `Word: ${clickedNode.id}`;
-    classesItem.textContent = `Classes: ${clickedNode.classes.join(", ")}`;
-    languageItem.textContent = `Language: ${clickedNode.language}`;
+    idItem.textContent = `${clickedNode.id}`;
+    classesItem.textContent = `${clickedNode.classes.join(", ")}`;
+    languageItem.textContent = `${clickedNode.language}`;
 
     // Append items to the info list
+    infoList.appendChild(wordHeading);
     infoList.appendChild(idItem);
+    infoList.appendChild(classHeading);
     infoList.appendChild(classesItem);
+    infoList.appendChild(languageHeading);
     infoList.appendChild(languageItem);
 
     // Clear any existing content in the container

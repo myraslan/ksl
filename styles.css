@@ -199,3 +199,20 @@ main {
     width: 100%;
     position: relative;
 }
+
+#nodeInfoContainer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#nodeInfoContainer li {
+    margin-bottom: 5px;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+#nodeInfoContainer .heading{
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
